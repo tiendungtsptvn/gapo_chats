@@ -111,4 +111,8 @@ class GPColor {
       Color.fromRGBO(250, 140, 22, 0.24);
   static const Color darkFunctionCriticalPrimary =
       Color.fromRGBO(250, 140, 22, 1);
+
+  /// Chats
+  static const Color textFieldBkg = Color.fromRGBO(20, 33, 65, 0.06);
+  static const Color hintTextInput = Color(0xFF737682);
 }
