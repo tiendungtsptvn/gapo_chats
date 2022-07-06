@@ -43,6 +43,7 @@ dependencies:
   url_launcher: ^6.0.10
   device_info_plus: ^2.1.0
   flutter_keychain: ^2.1.0
+  flutter_svg: ^1.1.1+1
 
   # GETX STATE MANAGEMENT
   get: ^4.6.1
@@ -83,6 +84,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/sample_data/
 
   fonts:
     - family: Roboto

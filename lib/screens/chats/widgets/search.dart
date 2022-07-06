@@ -1,6 +1,7 @@
 import 'package:base_flutter/theme/colors.dart';
 import 'package:base_flutter/theme/text_theme.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 class SearchChats extends StatelessWidget {
@@ -16,14 +17,14 @@ class SearchChats extends StatelessWidget {
       prefix: Padding(
         padding: const EdgeInsets.only(left: 13, right: 10),
         child: SvgPicture.asset(
-          AppPaths.searchIcon,
+          "assets/images/icon-search.svg",
           color: GPColor.hintTextInput,
           fit: BoxFit.fill,
           width: 13,
           height: 13,
         ),
       ),
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         color: GPColor.textFieldBkg,
         borderRadius: BorderRadius.circular(20),

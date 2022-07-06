@@ -12,6 +12,7 @@ class Constants {
   static String defaultCalendarEventId = "";
 
   static const double kLoadMoreOffset = 100;
+  static const int perPageSize = 10;
 
   static const coin1AddressMain = "0xFD626E4c00B59AFCAFd0F47F743051A58BCc4A62";
   static const coin2AddressMain = "0xE904A243c4D697C12a5DcB96286Ac77F9ABD9628";

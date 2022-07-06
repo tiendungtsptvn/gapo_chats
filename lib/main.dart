@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
           ],
           translationsKeys: AppTranslation.translations,
           initialRoute:
-              TokenManager.isLoggedIn() ? RouterName.tabbar : RouterName.login,
+              RouterName.chats,
           debugShowCheckedModeBanner: false,
           getPages: Pages.pages,
           routingCallback: (value) {

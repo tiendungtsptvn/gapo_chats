@@ -19,7 +19,6 @@ class ChangePasswordScreenBinding extends Bindings {
 
 class ChangePasswordScreen extends GetView<ChangePasswordController> {
   const ChangePasswordScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
