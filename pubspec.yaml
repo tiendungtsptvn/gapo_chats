@@ -52,6 +52,8 @@ dependencies:
   # WIDGETS
   pull_to_refresh: ^2.0.0
   loadmore: ^2.0.1
+  flutter_slidable: ^1.3.0
+  shimmer: ^2.0.0
 
   # Networking
   dio: ^4.0.0

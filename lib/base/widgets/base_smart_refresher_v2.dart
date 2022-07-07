@@ -48,7 +48,7 @@ class BaseSmartFresherV2State extends State<BaseSmartFresherV2> {
           refreshingText: "",
           releaseText: "",
           idleText: "",
-          idleIcon: Icon(Icons.arrow_downward),
+          idleIcon: Icon(Icons.arrow_downward, color: GPColor.workPrimary,),
           completeText: "",
           completeIcon: Icon(Icons.done, color: GPColor.workPrimary,),
           releaseIcon: CupertinoActivityIndicator(color: GPColor.workPrimary)),

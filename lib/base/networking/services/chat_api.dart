@@ -6,28 +6,29 @@ import 'package:flutter/services.dart';
 
 class ChatAPI {
   //have no api
-  Future<List<ChatModel>> getChats({required int page})async{
+  Future<List<ChatModel>> getChats({required int page}) async {
     List<ChatModel> chats = [];
     //get local sample data instead of call api
-    try{
-      final String response = await rootBundle.loadString('assets/sample_data/chat_response.json');
+    try {
+      final String response =
+          await rootBundle.loadString('assets/sample_data/chat_response.json');
       final data = await json.decode(response);
-      if(data["data"] != null){
+      if (data["data"] != null) {
         List<dynamic> list = data["data"];
-        for(int index = 0; index < list.length; index ++){
+        for (int index = 0; index < list.length; index++) {
           //handle for load more without api
-          if(index >= ((page - 1)*Constants.perPageSize) && index < ((page)*Constants.perPageSize)){
+          if (index >= ((page - 1) * Constants.perPageSize) &&
+              index < ((page) * Constants.perPageSize)) {
             chats.add(ChatModel.fromJson(list[index] as Map<String, dynamic>));
           }
-          if(chats.length == Constants.perPageSize){
+          if (chats.length == Constants.perPageSize) {
             break;
           }
         }
       }
       return chats;
-    }catch(e){
-      print(e.toString());
-      return [];
+    } catch (e) {
+      rethrow;
     }
   }
 }

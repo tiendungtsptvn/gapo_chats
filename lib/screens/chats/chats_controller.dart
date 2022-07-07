@@ -2,6 +2,9 @@ import 'package:base_flutter/base/controller/base_controller.dart';
 import 'package:base_flutter/base/networking/services/chat_api.dart';
 import 'package:base_flutter/configs/constants.dart';
 import 'package:base_flutter/models/api/chat.dart';
+import 'package:base_flutter/theme/colors.dart';
+import 'package:base_flutter/theme/text_theme.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -34,7 +37,19 @@ class ChatsController extends BaseController {
       }else{
         chats.addAll(res);
       }
-    } catch (_) {}
+    } catch (e) {
+      Get.showSnackbar(GetSnackBar(
+        backgroundColor: GPColor.workPrimary,
+        messageText: Text(
+          "Đã xảy ra lỗi, vui lòng thử lại",
+          style: textStyle(GPTypography.bodyMedium)?.merge(
+              const TextStyle(
+                  color: GPColor.contentInversePrimary)),
+        ),
+        duration: const Duration(seconds: 2),
+      ));
+
+    }
   }
 
   bool pinned({required ChatModel? chat}) {

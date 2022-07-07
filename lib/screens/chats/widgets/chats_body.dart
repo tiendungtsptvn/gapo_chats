@@ -4,8 +4,10 @@ import 'package:base_flutter/screens/chats/chats_controller.dart';
 import 'package:base_flutter/screens/chats/widgets/chat_item.dart';
 import 'package:base_flutter/screens/chats/widgets/chat_tabs.dart';
 import 'package:base_flutter/theme/colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:base_flutter/theme/text_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ChatsBody extends GetView<ChatsController> {
@@ -13,7 +15,6 @@ class ChatsBody extends GetView<ChatsController> {
 
   @override
   Widget build(BuildContext context) {
-    // return SizedBox();
     return DefaultTabController(
       length: tabsChats.length,
       initialIndex: 0,
@@ -31,63 +32,117 @@ class ChatsBody extends GetView<ChatsController> {
                   physics: const NeverScrollableScrollPhysics(),
                   children: List.generate(tabsChats.length, (index) {
                     return Obx(() {
-                      if (controller.loadingChats.value) {
-                        return const Center(
-                          child: CupertinoActivityIndicator(),
-                        );
+                      List<dynamic> chats = [];
+                      if (controller.chats.isEmpty &&
+                          controller.loadingChats.value) {
+                        chats =
+                            List.generate(10, (index) => ChatModel()).toList();
+                      } else {
+                        chats = controller.chats;
                       }
-                      return BaseSmartFresherV2(
-                        child: ListView.builder(
-                          itemCount: controller.chats.length,
-                          itemBuilder: (context, index) {
-                            return Dismissible(
-                              key: UniqueKey(),
-                              direction: DismissDirection.endToStart,
-                              crossAxisEndOffset: 0.5,
-                              background: Container(
-                                width: 20,
-                                alignment: AlignmentDirectional.centerEnd,
-                                color: GPColor.functionNegativePrimary,
-                                padding: const EdgeInsets.symmetric(horizontal: 50),
-                                child: const Icon(
-                                  Icons.delete,
-                                  size: 20,
-                                  color: Colors.white,
-                                ),
+                      return (chats.isEmpty)
+                          ? const Center(
+                              child: Text("Empty"),
+                            )
+                          : BaseSmartFresherV2(
+                              child: ListView.builder(
+                                itemCount: chats.length,
+                                itemBuilder: (context, index) {
+                                  return Slidable(
+                                      key: Key((chats[index] as ChatModel)
+                                          .id
+                                          .toString()),
+                                      endActionPane: ActionPane(
+                                        motion: const ScrollMotion(),
+                                        extentRatio: 0.45,
+                                        children: [
+                                          Expanded(
+                                            child: InkWell(
+                                              onTap: () {},
+                                              child: Container(
+                                                width: 80,
+                                                color: GPColor.bgTertiary,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                      "assets/images/icon-more.svg",
+                                                      color: GPColor
+                                                          .contentPrimary,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 9,
+                                                    ),
+                                                    Text(
+                                                      "Thêm",
+                                                      style: textStyle(
+                                                              GPTypography
+                                                                  .bodySmall)
+                                                          ?.merge(
+                                                        const TextStyle(
+                                                            color: GPColor
+                                                                .contentPrimary),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            flex: 1,
+                                          ),
+                                          Expanded(
+                                            child: InkWell(
+                                              child: Container(
+                                                width: 80,
+                                                color: GPColor
+                                                    .functionNegativePrimary,
+                                                child: Column(
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                      "assets/images/icon-recycle-bin.svg",
+                                                      color: GPColor
+                                                          .contentInversePrimary,
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 9,
+                                                    ),
+                                                    Text(
+                                                      "Xóa",
+                                                      style: textStyle(
+                                                              GPTypography
+                                                                  .bodySmall)
+                                                          ?.merge(
+                                                        const TextStyle(
+                                                            color: GPColor
+                                                                .contentInversePrimary),
+                                                      ),
+                                                    )
+                                                  ],
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                ),
+                                              ),
+                                            ),
+                                            flex: 1,
+                                          ),
+                                        ],
+                                      ),
+                                      child: ChatItem(
+                                        loading: controller.loadingChats.value,
+                                        chat: chats[index] as ChatModel,
+                                      ));
+                                },
                               ),
-                              child: ChatItem(
-                                chat: controller.chats[index] as ChatModel,
-                              ),
+                              onRefresh: controller.onReload,
+                              onLoadMore: controller.onLoadMore,
                             );
-                          },
-                        ),
-                        onRefresh: controller.onReload,
-                        onLoadMore: controller.onLoadMore,
-                      );
                     });
                   }),
                 ))
               ],
             ),
           );
-          // return Scaffold(
-          //   appBar: AppBar(
-          //     bottom: const PreferredSize(
-          //       preferredSize: Size.fromHeight(42),
-          //       child: ChatTabs(),
-          //     ),
-          //   ),
-          //   body: TabBarView(
-          //     physics: const NeverScrollableScrollPhysics(),
-          //     children: List.generate(tabsChats.length, (index) {
-          //       return SingleChildScrollView(
-          //         child: SizedBox(
-          //           height: 100,
-          //         ),
-          //       );
-          //     }),
-          //   ),
-          // );
         },
       ),
     );

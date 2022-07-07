@@ -1,3 +1,4 @@
+import 'package:base_flutter/base/widgets/animated_shimmer.dart';
 import 'package:base_flutter/models/api/chat.dart';
 import 'package:base_flutter/screens/chats/chats_controller.dart';
 import 'package:base_flutter/theme/colors.dart';
@@ -7,11 +8,43 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class ChatItem extends GetView<ChatsController> {
-  const ChatItem({Key? key, required this.chat}) : super(key: key);
+  const ChatItem({Key? key, required this.chat,
+  required this.loading}) : super(key: key);
   final ChatModel? chat;
+  final bool loading;
 
   @override
   Widget build(BuildContext context) {
+    if(loading){
+      return SizedBox(
+        height: 80,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            //avatar
+            const AnimatedShimmer(width: 64, height: 64, radius: 100),
+            //content
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    AnimatedShimmer(width: 150, height: 12),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    AnimatedShimmer(width: 250, height: 12),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
     return SizedBox(
       height: 80,
       child: Row(
@@ -73,7 +106,7 @@ class ChatItem extends GetView<ChatsController> {
                           chat?.name ?? "",
                           style: (controller.enableUnread(chat: chat))
                               ? textStyle(GPTypography.headingMedium)?.merge(
-                                  const TextStyle(fontWeight: FontWeight.bold))
+                              const TextStyle(fontWeight: FontWeight.bold))
                               : textStyle(GPTypography.bodyLarge),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -104,8 +137,8 @@ class ChatItem extends GetView<ChatsController> {
                                   .toString(),
                               style: textStyle(GPTypography.bodySmallBold)
                                   ?.merge(const TextStyle(
-                                      color:
-                                          GPColor.functionAlwaysLightPrimary)),
+                                  color:
+                                  GPColor.functionAlwaysLightPrimary)),
                             ),
                           ),
                         )
@@ -119,11 +152,11 @@ class ChatItem extends GetView<ChatsController> {
                           style: textStyle(GPTypography.bodyMedium)?.merge(
                               (controller.enableUnread(chat: chat))
                                   ? const TextStyle(
-                                      color: GPColor.contentPrimary,
-                                      fontWeight: FontWeight.bold)
+                                  color: GPColor.contentPrimary,
+                                  fontWeight: FontWeight.bold)
                                   : const TextStyle(
-                                      color: GPColor.contentSecondary,
-                                    )),
+                                color: GPColor.contentSecondary,
+                              )),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
