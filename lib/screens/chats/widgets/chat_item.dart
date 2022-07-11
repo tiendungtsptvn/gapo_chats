@@ -55,6 +55,7 @@ class ChatItem extends GetView<ChatsController> {
         motion: const ScrollMotion(),
         extentRatio: 0.45,
         children: [
+          const SizedBox(width: 12,),
           Expanded(
             child: InkWell(
               onTap: () {},
