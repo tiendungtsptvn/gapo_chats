@@ -1,3 +1,4 @@
+import 'package:base_flutter/configs/string.dart';
 import 'package:base_flutter/theme/colors.dart';
 import 'package:base_flutter/theme/text_theme.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,21 +46,17 @@ class BaseSmartFresherV2State extends State<BaseSmartFresherV2> {
       controller: _refreshController!,
       header: const ClassicHeader(
           refreshingIcon: CupertinoActivityIndicator(color: GPColor.workPrimary),
-          refreshingText: "",
-          releaseText: "",
-          idleText: "",
           idleIcon: Icon(Icons.arrow_downward, color: GPColor.workPrimary,),
-          completeText: "",
           completeIcon: Icon(Icons.done, color: GPColor.workPrimary,),
           releaseIcon: CupertinoActivityIndicator(color: GPColor.workPrimary)),
       footer: ClassicFooter(
         iconPos: isRtl ? IconPosition.right : IconPosition.left,
         loadingIcon: const CupertinoActivityIndicator(color: GPColor.workPrimary),
-        loadingText: "Loading",
+        loadingText: AppStrings.loading,
+        idleText: "",
         textStyle: textStyle(GPTypography.headingMedium)!.merge(
           const TextStyle(color: GPColor.workPrimary)
         ),
-        idleText: "",
         idleIcon: null,
       ),
       onRefresh: onRefresh,

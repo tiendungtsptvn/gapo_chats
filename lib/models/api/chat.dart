@@ -1,5 +1,12 @@
+import 'package:base_flutter/configs/string.dart';
+import 'package:base_flutter/models/api/chat_last_message.dart';
+import 'package:base_flutter/models/api/chat_partner.dart';
+import 'package:base_flutter/models/api/chat_setting.dart';
+import 'package:intl/intl.dart';
+
 class ChatModel {
   String? name;
+  bool? loading;
   int? enableNotify;
   String? role;
   String? avatar;
@@ -24,27 +31,28 @@ class ChatModel {
 
   ChatModel(
       {this.name,
-        this.enableNotify,
-        this.role,
-        this.avatar,
-        this.id,
-        this.groupLevel,
-        this.messageCount,
-        this.memberCount,
-        this.banCount,
-        this.folder,
-        this.pinnedMessageId,
-        this.readCount,
-        this.type,
-        this.link,
-        this.partner,
-        this.partnerId,
-        this.lastMessage,
-        this.pinnedAt,
-        this.pinnedCount,
-        this.unreadCount,
-        this.canSendMessage,
-        this.settings});
+      this.loading = false,
+      this.enableNotify,
+      this.role,
+      this.avatar,
+      this.id,
+      this.groupLevel,
+      this.messageCount,
+      this.memberCount,
+      this.banCount,
+      this.folder,
+      this.pinnedMessageId,
+      this.readCount,
+      this.type,
+      this.link,
+      this.partner,
+      this.partnerId,
+      this.lastMessage,
+      this.pinnedAt,
+      this.pinnedCount,
+      this.unreadCount,
+      this.canSendMessage,
+      this.settings});
 
   ChatModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -62,7 +70,7 @@ class ChatModel {
     type = json['type'];
     link = json['link'];
     partner =
-    json['partner'] != null ? Partner.fromJson(json['partner']) : null;
+        json['partner'] != null ? Partner.fromJson(json['partner']) : null;
     partnerId = json['partner_id'];
     lastMessage = json['last_message'] != null
         ? LastMessage.fromJson(json['last_message'])
@@ -70,153 +78,83 @@ class ChatModel {
     pinnedAt = json['pinned_at'];
     pinnedCount = json['pinned_count'];
     if (json['tags'] != null) {
-      json['tags'].forEach((v) {
-      });
+      json['tags'].forEach((v) {});
     }
     unreadCount = json['unread_count'];
     canSendMessage = json['can_send_message'];
-    settings = json['settings'] != null
-        ? Settings.fromJson(json['settings'])
-        : null;
+    settings =
+        json['settings'] != null ? Settings.fromJson(json['settings']) : null;
   }
 
-}
-
-class Partner {
-  String? id;
-  String? name;
-  String? avatar;
-  int? statusVerify;
-  String? type;
-  int? readCount;
-
-  Partner(
-      {this.id,
-        this.name,
-        this.avatar,
-        this.statusVerify,
-        this.type,
-        this.readCount});
-
-  Partner.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    avatar = json['avatar'];
-    statusVerify = json['status_verify'];
-    type = json['type'];
-    readCount = json['read_count'];
+  bool nameContains({required String keyword}) {
+    if (name != null) {
+      if (name!.toLowerCase().contains(keyword.toLowerCase())) {
+        return true;
+      }
+    }
+    return false;
   }
 
-}
-
-class LastMessage {
-  int? id;
-  String? body;
-  RawBody? rawBody;
-  Sender? sender;
-  int? createdAt;
-  String? userId;
-
-  LastMessage(
-      {this.id,
-        this.body,
-        this.rawBody,
-        this.sender,
-        this.createdAt,
-        this.userId});
-
-  LastMessage.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    body = json['body'];
-    rawBody = json['raw_body'] != null
-        ? RawBody.fromJson(json['raw_body'])
-        : null;
-    sender =
-    json['sender'] != null ? Sender.fromJson(json['sender']) : null;
-    createdAt = json['created_at'];
-    userId = json['user_id'];
+  bool isPinned() {
+    if (pinnedCount != null) {
+      if (pinnedCount! > 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
-}
-
-class RawBody {
-  String? text;
-  String? type;
-  Metadata? metadata;
-  bool? isMarkdownText;
-
-  RawBody(
-      {this.text,
-        this.type,
-        this.metadata,
-        this.isMarkdownText});
-
-  RawBody.fromJson(Map<String, dynamic> json) {
-    text = json['text'];
-    type = json['type'];
-    isMarkdownText = json['is_markdown_text'];
+  bool isLoading() {
+    if (loading != null) {
+      return loading!;
+    }
+    return false;
   }
 
-}
-
-class Metadata {
-  AuthInformation? authInformation;
-
-  Metadata({this.authInformation});
-
-  Metadata.fromJson(Map<String, dynamic> json) {
-    authInformation = json['auth_information'] != null
-        ? AuthInformation.fromJson(json['auth_information'])
-        : null;
-  }
-}
-
-class AuthInformation {
-  String? deviceId;
-  int? createdAt;
-  String? requestIp;
-  String? userAgent;
-
-  AuthInformation(
-      {this.deviceId, this.createdAt, this.requestIp, this.userAgent});
-
-  AuthInformation.fromJson(Map<String, dynamic> json) {
-    deviceId = json['device_id'];
-    createdAt = json['created_at'];
-    requestIp = json['request_ip'];
-    userAgent = json['user_agent'];
+  bool isActive() {
+    if (enableNotify != null) {
+      if (enableNotify == 1) {
+        return true;
+      }
+    }
+    return false;
   }
 
-}
-
-class Sender {
-  String? id;
-  String? name;
-  String? avatar;
-  int? statusVerify;
-  String? type;
-
-  Sender({this.id, this.name, this.avatar, this.statusVerify, this.type});
-
-  Sender.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    avatar = json['avatar'];
-    statusVerify = json['status_verify'];
-    type = json['type'];
+  bool enableUnread() {
+    if (unreadCount != null) {
+      if (unreadCount! > 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
-}
-
-class Settings {
-  int? isPublic;
-  int? disableMemberSendMessage;
-
-  Settings({this.isPublic, this.disableMemberSendMessage});
-
-  Settings.fromJson(Map<String, dynamic> json) {
-    isPublic = json['is_public'];
-    disableMemberSendMessage = json['disable_member_send_message'];
+  String getTimeLastMessage() {
+    DateTime time = DateTime.now();
+    DateTime now = DateTime.now();
+    if (lastMessage?.createdAt != null) {
+      time = DateTime.fromMillisecondsSinceEpoch(lastMessage!.createdAt!);
+      if (now.difference(time).inSeconds < 60) {
+        return AppStrings.justFinished;
+      } else if (now.difference(time).inMinutes < 60) {
+        return "${now.difference(time).inMinutes} ${AppStrings.minutes}";
+      } else if (now.difference(time).inHours < 24) {
+        return "${now.difference(time).inHours} ${AppStrings.hour}";
+      } else {
+        return DateFormat("dd TMM").format(time);
+      }
+    }
+    return "";
   }
 
+  int getUnreadMessage() {
+    if (enableUnread()) {
+      if (unreadCount! > 9) {
+        return 9;
+      } else {
+        return unreadCount!;
+      }
+    }
+    return 0;
+  }
 }

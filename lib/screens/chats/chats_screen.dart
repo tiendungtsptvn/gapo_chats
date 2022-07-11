@@ -12,36 +12,30 @@ class ChatsScreenBinding extends Bindings{
   }
 }
 
-class ChatsScreen extends StatefulWidget {
+class ChatsScreen extends StatelessWidget {
   const ChatsScreen({Key? key}) : super(key: key);
 
   @override
-  State<ChatsScreen> createState() => _ChatsScreenState();
-}
-
-class _ChatsScreenState extends State<ChatsScreen> {
-  final ChatsController chatsController = Get.find();
-
-  @override
-  void initState() {
-    chatsController.initChats();
-    super.initState();
-  }
-  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          children: const [
-            HeaderChats(),
-            SizedBox(height: 20,),
-            SearchChats(),
-            SizedBox(height: 5,),
-            ChatsBody()
-          ],
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            children: const [
+              HeaderChats(),
+              SizedBox(height: 20,),
+              SearchChats(),
+              SizedBox(height: 5,),
+              ChatsBody()
+            ],
+          ),
         ),
       ),
     );
   }
 }
+

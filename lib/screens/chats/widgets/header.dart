@@ -1,3 +1,4 @@
+import 'package:base_flutter/configs/path.dart';
 import 'package:base_flutter/theme/colors.dart';
 import 'package:base_flutter/theme/text_theme.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class HeaderChats extends StatelessWidget {
                   "https://image-1.gapo.vn/icon/zoom-avatar.png",
                   errorBuilder: (context, error, stackTrace) {
                     return const Image(
-                      image: AssetImage("assets/images/default_image.png"),
+                      image: AssetImage(AppPaths.defaultImage),
                       height: 32,
                       width: 32,
                       fit: BoxFit.fill,
@@ -83,8 +84,9 @@ class HeaderChats extends StatelessWidget {
                     child: Text(
                       "9",
                       style: textStyle(GPTypography.bodySmallBold)?.merge(
-                          const TextStyle(
-                              color: GPColor.functionAlwaysLightPrimary)),
+                        const TextStyle(
+                            color: GPColor.functionAlwaysLightPrimary),
+                      ),
                     ),
                   ),
                 ),
@@ -96,13 +98,13 @@ class HeaderChats extends StatelessWidget {
           width: 22,
         ),
         SvgPicture.asset(
-          "assets/images/icon-folder.svg",
+          AppPaths.iconFolder,
         ),
         const SizedBox(
           width: 22,
         ),
         SvgPicture.asset(
-          "assets/images/icon-edit-green.svg",
+          AppPaths.iconGreenEdit,
         ),
       ],
     );
