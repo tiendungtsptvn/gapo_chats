@@ -1,4 +1,5 @@
 import 'package:base_flutter/configs/path.dart';
+import 'package:base_flutter/screens/chats/widgets/menu_function.dart';
 import 'package:base_flutter/theme/colors.dart';
 import 'package:base_flutter/theme/text_theme.dart';
 import 'package:flutter/material.dart';
@@ -61,37 +62,55 @@ class HeaderChats extends StatelessWidget {
             maxLines: 1,
           ),
         ),
-        SizedBox(
-          width: 30,
-          height: 30,
-          child: Stack(
-            children: [
-              Center(
-                child: SvgPicture.asset(
-                  "assets/images/icon-menu.svg",
+        InkWell(
+          onTap: () {
+            showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return const FractionallySizedBox(
+                    child: MenuFunction(),
+                    heightFactor: 0.45,
+                  );
+                },
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(16),
+                  ),
                 ),
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: Container(
-                  width: 16,
-                  height: 16,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: GPColor.functionNegativePrimary),
-                  child: Center(
-                    child: Text(
-                      "9",
-                      style: textStyle(GPTypography.bodySmallBold)?.merge(
-                        const TextStyle(
-                            color: GPColor.functionAlwaysLightPrimary),
+            );
+          },
+          child: SizedBox(
+            width: 30,
+            height: 30,
+            child: Stack(
+              children: [
+                Center(
+                  child: SvgPicture.asset(
+                    "assets/images/icon-menu.svg",
+                  ),
+                ),
+                Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Container(
+                    width: 16,
+                    height: 16,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: GPColor.functionNegativePrimary),
+                    child: Center(
+                      child: Text(
+                        "9",
+                        style: textStyle(GPTypography.bodySmallBold)?.merge(
+                          const TextStyle(
+                              color: GPColor.functionAlwaysLightPrimary),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
         const SizedBox(

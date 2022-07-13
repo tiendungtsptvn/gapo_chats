@@ -1,5 +1,5 @@
 import 'package:base_flutter/configs/path.dart';
-import 'package:base_flutter/configs/string.dart';
+import 'package:base_flutter/generated/locales.g.dart';
 import 'package:base_flutter/screens/chats/chats_controller.dart';
 import 'package:base_flutter/theme/colors.dart';
 import 'package:base_flutter/theme/text_theme.dart';
@@ -14,7 +14,7 @@ class SearchChats extends GetView<ChatsController> {
     return CupertinoTextField(
       placeholderStyle: textStyle(GPTypography.body16),
       textInputAction: TextInputAction.next,
-      placeholder: AppStrings.search,
+      placeholder: LocaleKeys.chat_search.tr,
       style: textStyle(GPTypography.body16),
       prefix: Padding(
         padding: const EdgeInsets.only(left: 13, right: 10),

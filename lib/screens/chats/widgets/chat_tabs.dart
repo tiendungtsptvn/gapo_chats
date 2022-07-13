@@ -1,13 +1,14 @@
-import 'package:base_flutter/configs/string.dart';
+import 'package:base_flutter/generated/locales.g.dart';
 import 'package:base_flutter/theme/colors.dart';
 import 'package:base_flutter/theme/text_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-const List<String> tabsChats = [
-  AppStrings.all,
-  AppStrings.mention,
-  AppStrings.unread,
-  AppStrings.product
+ List<String> tabsChats = [
+  LocaleKeys.chat_all.tr,
+   LocaleKeys.chat_mention.tr,
+   LocaleKeys.chat_unread.tr,
+   LocaleKeys.chat_product.tr
 ];
 
 class ChatTabs extends StatefulWidget {

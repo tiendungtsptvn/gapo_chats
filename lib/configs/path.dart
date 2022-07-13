@@ -8,5 +8,9 @@ class AppPaths{
   static const String iconFolder = "assets/images/icon-folder.svg";
   static const String iconGreenEdit = "assets/images/icon-edit-green.svg";
   static const String iconSearch = "assets/images/icon-search.svg";
+  static const String iconClose = "assets/images/icon-close.svg";
+  static const String iconWaitingMessage = "assets/images/icon-waiting-message.svg";
+  static const String iconStoredMessage = "assets/images/icon-stored-message.svg";
+  static const String iconDone = "assets/images/icon-done.svg";
 
 }

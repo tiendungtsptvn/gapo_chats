@@ -98,5 +98,32 @@
     "minute_zero": "% minute",
     "minute_one": "% minute",
     "minute_many": "% minutes"
+  },
+  "chat": {
+    "search" : "Tìm kiếm",
+    "loading" : "Loading",
+    "empty_conversations" : "Chưa có cuộc hội thoại nào",
+    "more" : "Thêm",
+    "delete" : "Xóa",
+    "all" : "Tất cả",
+    "unread" : "Chưa đọc",
+    "mention" : "Nhắc đến",
+    "product" : "Product",
+    "error_Notification" : "Đã xảy ra lỗi, vui lòng thử lại",
+    "just_Finished" : "Vừa xong",
+    "minutes" : "phút",
+    "hour" : "giờ",
+    "pick_function": "Chọn chức năng",
+    "waiting_message": "Tin nhắn chờ",
+    "stored_message": "Cuộc hội thoại đã lưu trữ",
+    "store_success": "Lưu trữ cuộc hội thoại thành công",
+    "undo": "HOÀN TÁC",
+    "block_message": "Chặn tin nhắn",
+    "pin": "Ghim",
+    "turn_off_notification": "Tắt thông báo",
+    "turn_on_secret_conversation": "Bật trò chuyện bí mật",
+    "store_conversation": "Lưu trữ cuộc hội thoại",
+    "delete_conversation": "Xóa cuộc hội thoại",
+    "cancel": "Hủy bỏ"
   }
 }

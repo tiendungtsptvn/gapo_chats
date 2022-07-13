@@ -344,6 +344,31 @@ class LocaleKeys {
   static const time_minute_zero = 'time_minute_zero';
   static const time_minute_one = 'time_minute_one';
   static const time_minute_many = 'time_minute_many';
+  static const chat_search = "chat_search";
+  static const chat_loading = "chat_loading";
+  static const chat_emptyConversations = "chat_emptyConversations";
+  static const chat_more = "chat_more";
+  static const chat_delete = "chat_delete";
+  static const chat_all = "chat_all";
+  static const chat_unread = "chat_unread";
+  static const chat_mention = "chat_mention";
+  static const chat_product = "chat_product";
+  static const chat_errorNotification = "chat_errorNotification";
+  static const chat_justFinished = "chat_justFinished";
+  static const chat_minutes = "chat_minutes";
+  static const chat_hour = "chat_hour";
+  static const chat_pick_function = "chat_pick_function";
+  static const chat_waiting_message = "chat_waiting_message";
+  static const chat_stored_message = "chat_stored_message";
+  static const chat_store_success = "chat_store_success";
+  static const chat_undo = "chat_undo";
+  static const chat_block_message = "chat_block_message";
+  static const chat_pin = "chat_pin";
+  static const chat_turn_off_notification = "chat_turn_off_notification";
+  static const chat_turn_on_secret_conversation = "chat_turn_on_secret_conversation";
+  static const chat_store_conversation = "chat_store_conversation";
+  static const chat_delete_conversation = "chat_delete_conversation";
+  static const chat_cancel = "chat_cancel";
 }
 
 class Locales {
@@ -682,6 +707,31 @@ class Locales {
     'time_minute_zero': '% minute',
     'time_minute_one': '% minute',
     'time_minute_many': '% minutes',
+    'chat_search' : "Tìm kiếm",
+    'chat_loading' : "Loading",
+    'chat_emptyConversations' : "Chưa có cuộc hội thoại nào",
+    'chat_more' : "Thêm",
+    'chat_delete' : "Xóa",
+    'chat_all' : "Tất cả",
+    'chat_unread' : "Chưa đọc",
+    'chat_mention' : "Nhắc đến",
+    'chat_product' : "Product",
+    'chat_errorNotification' : "Đã xảy ra lỗi, vui lòng thử lại",
+    'chat_justFinished' : "Vừa xong",
+    'chat_minutes' : "phút",
+    'chat_hour' : "giờ",
+    'chat_pick_function' : "Chọn chức năng",
+    'chat_waiting_message' : "Tin nhắn chờ",
+    'chat_stored_message' : "Cuộc hội thoại đã lưu trữ",
+    'chat_store_success' : "Lưu trữ cuộc hội thoại thành công",
+    'chat_undo' : "HOÀN TÁC",
+    'chat_block_message': "Chặn tin nhắn",
+    'chat_pin': "Ghim",
+    'chat_turn_off_notification': "Tắt thông báo",
+    'chat_turn_on_secret_conversation': "Bật trò chuyện bí mật",
+    'chat_store_conversation': "Lưu trữ cuộc hội thoại",
+    'chat_delete_conversation': "Xóa cuộc hội thoại",
+    'chat_cancel': "Hủy bỏ",
   };
   static const vi = {
     'login_title': 'Login / Sign up',
@@ -1018,5 +1068,30 @@ class Locales {
     'time_minute_zero': '% minute',
     'time_minute_one': '% minute',
     'time_minute_many': '% minutes',
+    'chat_search' : "Tìm kiếm",
+    'chat_loading' : "Loading",
+    'chat_emptyConversations' : "Chưa có cuộc hội thoại nào",
+    'chat_more' : "Thêm",
+    'chat_delete' : "Xóa",
+    'chat_all' : "Tất cả",
+    'chat_unread' : "Chưa đọc",
+    'chat_mention' : "Nhắc đến",
+    'chat_product' : "Product",
+    'chat_errorNotification' : "Đã xảy ra lỗi, vui lòng thử lại",
+    'chat_justFinished' : "Vừa xong",
+    'chat_minutes' : "phút",
+    'chat_hour' : "giờ",
+    'chat_pick_function' : "Chọn chức năng",
+    'chat_waiting_message' : "Tin nhắn chờ",
+    'chat_stored_message' : "Cuộc hội thoại đã lưu trữ",
+    'chat_store_success' : "Lưu trữ cuộc hội thoại thành công",
+    'chat_undo' : "HOÀN TÁC",
+    'chat_block_message': "Chặn tin nhắn",
+    'chat_pin': "Ghim",
+    'chat_turn_off_notification': "Tắt thông báo",
+    'chat_turn_on_secret_conversation': "Bật trò chuyện bí mật",
+    'chat_store_conversation': "Lưu trữ cuộc hội thoại",
+    'chat_delete_conversation': "Xóa cuộc hội thoại",
+    'chat_cancel': "Hủy bỏ",
   };
 }

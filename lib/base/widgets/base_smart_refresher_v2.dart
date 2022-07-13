@@ -1,8 +1,9 @@
-import 'package:base_flutter/configs/string.dart';
+import 'package:base_flutter/generated/locales.g.dart';
 import 'package:base_flutter/theme/colors.dart';
 import 'package:base_flutter/theme/text_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class BaseSmartFresherV2 extends StatefulWidget {
@@ -52,7 +53,7 @@ class BaseSmartFresherV2State extends State<BaseSmartFresherV2> {
       footer: ClassicFooter(
         iconPos: isRtl ? IconPosition.right : IconPosition.left,
         loadingIcon: const CupertinoActivityIndicator(color: GPColor.workPrimary),
-        loadingText: AppStrings.loading,
+        loadingText: LocaleKeys.chat_loading.tr,
         idleText: "",
         textStyle: textStyle(GPTypography.headingMedium)!.merge(
           const TextStyle(color: GPColor.workPrimary)

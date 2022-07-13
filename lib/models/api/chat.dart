@@ -1,7 +1,8 @@
-import 'package:base_flutter/configs/string.dart';
+import 'package:base_flutter/generated/locales.g.dart';
 import 'package:base_flutter/models/api/chat_last_message.dart';
 import 'package:base_flutter/models/api/chat_partner.dart';
 import 'package:base_flutter/models/api/chat_setting.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class ChatModel {
@@ -135,11 +136,11 @@ class ChatModel {
     if (lastMessage?.createdAt != null) {
       time = DateTime.fromMillisecondsSinceEpoch(lastMessage!.createdAt!);
       if (now.difference(time).inSeconds < 60) {
-        return AppStrings.justFinished;
+        return LocaleKeys.chat_justFinished.tr;
       } else if (now.difference(time).inMinutes < 60) {
-        return "${now.difference(time).inMinutes} ${AppStrings.minutes}";
+        return "${now.difference(time).inMinutes} ${LocaleKeys.chat_minutes.tr}";
       } else if (now.difference(time).inHours < 24) {
-        return "${now.difference(time).inHours} ${AppStrings.hour}";
+        return "${now.difference(time).inHours} ${LocaleKeys.chat_hour.tr}";
       } else {
         return DateFormat("dd TMM").format(time);
       }
