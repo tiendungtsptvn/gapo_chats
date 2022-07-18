@@ -1,12 +1,13 @@
 import 'package:base_flutter/configs/path.dart';
 import 'package:base_flutter/generated/locales.g.dart';
+import 'package:base_flutter/screens/chats/chats_controller.dart';
 import 'package:base_flutter/theme/colors.dart';
 import 'package:base_flutter/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class MenuFunction extends StatelessWidget {
+class MenuFunction extends GetView<ChatsController> {
   const MenuFunction({Key? key}) : super(key: key);
 
   @override
@@ -87,23 +88,28 @@ class MenuFunction extends StatelessWidget {
             ],
           ),
         ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 14),
-          height: 48,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                AppPaths.iconStoredMessage,
-              ),
-              const SizedBox(
-                width: 14,
-              ),
-              Text(
-                LocaleKeys.chat_stored_message.tr,
-                style: textStyle(GPTypography.bodyLarge),
-              ),
-            ],
+        InkWell(
+          onTap: (){
+            controller.goToStoredConversationScreen();
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            height: 48,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  AppPaths.iconStoredMessage,
+                ),
+                const SizedBox(
+                  width: 14,
+                ),
+                Text(
+                  LocaleKeys.chat_stored_message.tr,
+                  style: textStyle(GPTypography.bodyLarge),
+                ),
+              ],
+            ),
           ),
         )
       ],

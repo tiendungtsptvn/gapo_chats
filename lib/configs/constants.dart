@@ -64,6 +64,8 @@ class Constants {
 
   static int maxLevel = 30;
 
+  static const int restoreSnackDuration = 4;
+
   // Calories burned per minute = (MET x body weight in Kg x 3.5) ÷ 200
   // Detail here: https://captaincalculator.com/health/calorie/calories-burned-jumping-rope-calculator/
 

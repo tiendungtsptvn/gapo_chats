@@ -1,19 +1,19 @@
 import 'package:base_flutter/configs/path.dart';
 import 'package:base_flutter/generated/locales.g.dart';
 import 'package:base_flutter/models/api/chat.dart';
-import 'package:base_flutter/screens/chats/chats_controller.dart';
+import 'package:base_flutter/screens/chats/stored_conversation/stored_conversation_controller.dart';
 import 'package:base_flutter/screens/chats/widgets/chat_item.dart';
 import 'package:base_flutter/screens/chats/widgets/chat_item_loading.dart';
 import 'package:base_flutter/theme/colors.dart';
 import 'package:base_flutter/theme/text_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class DismissibleChatItem extends GetView<ChatsController> {
-  const DismissibleChatItem({
+class DismissibleStoredConversationItem
+    extends GetView<StoredConversationController> {
+  const DismissibleStoredConversationItem({
     Key? key,
     required this.chat,
     required this.index,
@@ -32,59 +32,13 @@ class DismissibleChatItem extends GetView<ChatsController> {
         motion: const ScrollMotion(),
         extentRatio: 0.45,
         children: [
-          const SizedBox(width: 12,),
+          const SizedBox(
+            width: 12,
+          ),
           Expanded(
             child: InkWell(
               onTap: () {
-                final action = CupertinoActionSheet(
-                  title:  Text(LocaleKeys.chat_pick_function.tr),
-                  actions: [
-                    CupertinoActionSheetAction(
-                      child:  Text(LocaleKeys.chat_block_message.tr),
-                      isDefaultAction: true,
-                      onPressed: () async {
-                      },
-                    ),
-                    CupertinoActionSheetAction(
-                      child:  Text(LocaleKeys.chat_pin.tr),
-                      isDefaultAction: true,
-                      onPressed: () async {
-                      },
-                    ),
-                    CupertinoActionSheetAction(
-                      child:  Text(LocaleKeys.chat_turn_off_notification.tr),
-                      isDefaultAction: true,
-                      onPressed: () async {
-                      },
-                    ),
-                    CupertinoActionSheetAction(
-                      child:  Text(LocaleKeys.chat_turn_on_secret_conversation.tr),
-                      isDefaultAction: true,
-                      onPressed: () async {
-                      },
-                    ),
-                    CupertinoActionSheetAction(
-                      child:  Text(LocaleKeys.chat_store_conversation.tr),
-                      isDefaultAction: true,
-                      onPressed: () async {
-                        controller.storeConversation(index: index);
-                      },
-                    ),
-                    CupertinoActionSheetAction(
-                      child:  Text(LocaleKeys.chat_delete_conversation.tr),
-                      isDestructiveAction: true,
-                      onPressed: () async {
-                      },
-                    )
-                  ],
-                  cancelButton: CupertinoActionSheetAction(
-                    child:  Text(LocaleKeys.chat_cancel.tr),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                );
-                showCupertinoModalPopup(context: context, builder: (context) => action);
+                controller.restoreStoredConversation(index: index);
               },
               child: Container(
                 width: 80,
@@ -93,14 +47,14 @@ class DismissibleChatItem extends GetView<ChatsController> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset(
-                      AppPaths.iconMore,
+                      AppPaths.iconRestore,
                       color: GPColor.contentPrimary,
                     ),
                     const SizedBox(
                       height: 9,
                     ),
                     Text(
-                      LocaleKeys.chat_more.tr,
+                      LocaleKeys.chat_restore.tr,
                       style: textStyle(GPTypography.bodySmall)?.merge(
                         const TextStyle(color: GPColor.contentPrimary),
                       ),
@@ -113,8 +67,8 @@ class DismissibleChatItem extends GetView<ChatsController> {
           ),
           Expanded(
             child: InkWell(
-              onTap: (){
-                controller.removeChat(index: index);
+              onTap: () {
+                controller.removeStoredConversation(index: index);
               },
               child: Container(
                 width: 80,

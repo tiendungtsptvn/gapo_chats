@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:base_flutter/base/controller/base_controller.dart';
 import 'package:base_flutter/base/networking/services/chat_api.dart';
+import 'package:base_flutter/configs/constants.dart';
 import 'package:base_flutter/configs/path.dart';
 import 'package:base_flutter/generated/locales.g.dart';
 import 'package:base_flutter/models/api/chat.dart';
+import 'package:base_flutter/routes/routes.dart';
 import 'package:base_flutter/theme/colors.dart';
 import 'package:base_flutter/theme/text_theme.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +19,10 @@ class ChatsController extends BaseController {
   RxList chats = [].obs;
   RxString error = "".obs;
 
-  List<ChatModel> chatsStored = [];
+  List<ChatModel> _chatsStored = [];
   String _currentKeyword = "";
   Timer? _debounceSearch;
-  int currentPage = 1;
-
-  bool get isError => error.value.isNotEmpty;
+  int _currentPage = 1;
 
   @override
   void onClose() {
@@ -47,9 +47,9 @@ class ChatsController extends BaseController {
   Future<void> _getChats() async {
     try {
       await Future.delayed(const Duration(seconds: 2));
-      List<ChatModel> res = await _chatAPI.getChats(page: currentPage);
+      List<ChatModel> res = await _chatAPI.getChats(page: _currentPage);
       if (_currentKeyword.trim().isNotEmpty) {
-        if (currentPage == 1) {
+        if (_currentPage == 1) {
           chats.value = res
               .where(
                   (element) => element.nameContains(keyword: _currentKeyword))
@@ -61,12 +61,12 @@ class ChatsController extends BaseController {
               .toList());
         }
       } else {
-        if (currentPage == 1) {
+        if (_currentPage == 1) {
           chats.value = res;
-          chatsStored = res;
+          _chatsStored = res;
         } else {
           chats.addAll(res);
-          chatsStored.addAll(res);
+          _chatsStored.addAll(res);
         }
       }
     } catch (e) {
@@ -83,12 +83,12 @@ class ChatsController extends BaseController {
   }
 
   Future<dynamic> onReload() async {
-    currentPage = 1;
+    _currentPage = 1;
     await _getChats();
   }
 
   Future<dynamic> onLoadMore() async {
-    currentPage += 1;
+    _currentPage += 1;
     await _getChats();
   }
 
@@ -103,12 +103,12 @@ class ChatsController extends BaseController {
 
   void _searchByKeyword({required String keyword}) {
     if (keyword.trim().isEmpty) {
-      chats.value = chatsStored;
+      chats.value = _chatsStored;
       return;
     }
     _currentKeyword = keyword;
     List<ChatModel> result = [];
-    for (ChatModel chat in chatsStored) {
+    for (ChatModel chat in _chatsStored) {
       if (chat.nameContains(keyword: keyword)) {
         result.add(chat);
       }
@@ -118,16 +118,36 @@ class ChatsController extends BaseController {
   }
 
   void removeChat({required int index}) {
-    _actionCanUndo(
+    actionCanUndo(
         listItem: chats,
         index: index,
-        undoMessage: LocaleKeys.chat_store_success.tr,
+        undoMessage: LocaleKeys.chat_delete_success.tr,
         action: () {
           printInfo(info: "Call api remove chat");
         });
   }
 
-  void _actionCanUndo(
+  void storeConversation({required int index}) {
+    Get.back();
+    actionCanUndo(
+        listItem: chats,
+        index: index,
+        undoMessage: LocaleKeys.chat_store_success.tr,
+        action: () {
+          printInfo(info: "Call api store conversation");
+        });
+  }
+
+  void goToStoredConversationScreen() async {
+    Get.back();
+    bool reloadChats = await Get.toNamed(RouterName.storedConversation);
+    if (reloadChats) {
+      _currentPage = 1;
+      await _getChats();
+    }
+  }
+
+  static void actionCanUndo(
       {required RxList listItem,
       required int index,
       required String undoMessage,
@@ -145,7 +165,7 @@ class ChatsController extends BaseController {
         style: textStyle(GPTypography.bodyMedium)
             ?.merge(const TextStyle(color: GPColor.contentInversePrimary)),
       ),
-      duration: const Duration(seconds: 4),
+      duration: const Duration(seconds: Constants.restoreSnackDuration),
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: const EdgeInsets.symmetric(vertical: 14),
       mainButton: SizedBox(

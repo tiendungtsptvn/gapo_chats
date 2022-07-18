@@ -12,5 +12,5 @@ class AppPaths{
   static const String iconWaitingMessage = "assets/images/icon-waiting-message.svg";
   static const String iconStoredMessage = "assets/images/icon-stored-message.svg";
   static const String iconDone = "assets/images/icon-done.svg";
-
+  static const String iconRestore = "assets/images/icon-restore.svg";
 }

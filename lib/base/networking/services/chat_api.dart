@@ -31,4 +31,30 @@ class ChatAPI {
       rethrow;
     }
   }
+
+  Future<List<ChatModel>> getStoredConversations({required int page}) async {
+    List<ChatModel> storedConversations = [];
+    //get local sample data instead of call api
+    try {
+      final String response =
+      await rootBundle.loadString('assets/sample_data/stored_conversation.json');
+      final data = await json.decode(response);
+      if (data["data"] != null) {
+        List<dynamic> list = data["data"];
+        for (int index = 0; index < list.length; index++) {
+          //handle for load more without api
+          if (index >= ((page - 1) * Constants.perPageSize) &&
+              index < ((page) * Constants.perPageSize)) {
+            storedConversations.add(ChatModel.fromJson(list[index] as Map<String, dynamic>));
+          }
+          if (storedConversations.length == Constants.perPageSize) {
+            break;
+          }
+        }
+      }
+      return storedConversations;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

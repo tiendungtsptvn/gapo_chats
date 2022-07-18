@@ -7,4 +7,5 @@ class RouterName {
   static const String tabbar = "/tabbar";
   static const String changePassword = "/changePassword";
   static const String chats = "/chats";
+  static const String storedConversation = "/chats/storedConversation";
 }

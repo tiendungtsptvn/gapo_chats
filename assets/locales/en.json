@@ -124,6 +124,9 @@
     "turn_on_secret_conversation": "Bật trò chuyện bí mật",
     "store_conversation": "Lưu trữ cuộc hội thoại",
     "delete_conversation": "Xóa cuộc hội thoại",
-    "cancel": "Hủy bỏ"
+    "cancel": "Hủy bỏ",
+    "delete_success": "Xóa cuộc hội thoại thành công",
+    "restore_success": "Khôi phục cuộc hội thoại thành công",
+    "restore": "Khôi phục"
   }
 }
