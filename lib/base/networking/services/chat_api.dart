@@ -10,9 +10,9 @@ class ChatAPI {
     List<ChatModel> chats = [];
     //get local sample data instead of call api
     try {
-      final String response =
-          await rootBundle.loadString('assets/sample_data/chat_response.json');
-      final data = await json.decode(response);
+      final data = await _loadDataFromAsset(
+        path: 'assets/sample_data/chat_response.json',
+      );
       if (data["data"] != null) {
         List<dynamic> list = data["data"];
         for (int index = 0; index < list.length; index++) {
@@ -36,16 +36,17 @@ class ChatAPI {
     List<ChatModel> storedConversations = [];
     //get local sample data instead of call api
     try {
-      final String response =
-      await rootBundle.loadString('assets/sample_data/stored_conversation.json');
-      final data = await json.decode(response);
+      final data = await _loadDataFromAsset(
+        path: 'assets/sample_data/stored_conversation.json',
+      );
       if (data["data"] != null) {
         List<dynamic> list = data["data"];
         for (int index = 0; index < list.length; index++) {
           //handle for load more without api
           if (index >= ((page - 1) * Constants.perPageSize) &&
               index < ((page) * Constants.perPageSize)) {
-            storedConversations.add(ChatModel.fromJson(list[index] as Map<String, dynamic>));
+            storedConversations
+                .add(ChatModel.fromJson(list[index] as Map<String, dynamic>));
           }
           if (storedConversations.length == Constants.perPageSize) {
             break;
@@ -56,5 +57,11 @@ class ChatAPI {
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<dynamic> _loadDataFromAsset({required String path}) async {
+    final String response = await rootBundle.loadString(path);
+    final data = await json.decode(response);
+    return data;
   }
 }

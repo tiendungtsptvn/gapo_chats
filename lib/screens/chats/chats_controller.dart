@@ -24,6 +24,8 @@ class ChatsController extends BaseController {
   Timer? _debounceSearch;
   int _currentPage = 1;
 
+  bool get firstPage => (_currentPage == 1);
+
   @override
   void onClose() {
     if (_debounceSearch != null) {
@@ -49,7 +51,7 @@ class ChatsController extends BaseController {
       await Future.delayed(const Duration(seconds: 2));
       List<ChatModel> res = await _chatAPI.getChats(page: _currentPage);
       if (_currentKeyword.trim().isNotEmpty) {
-        if (_currentPage == 1) {
+        if (firstPage) {
           chats.value = res
               .where(
                   (element) => element.nameContains(keyword: _currentKeyword))
@@ -61,7 +63,7 @@ class ChatsController extends BaseController {
               .toList());
         }
       } else {
-        if (_currentPage == 1) {
+        if (firstPage) {
           chats.value = res;
           _chatsStored = res;
         } else {
@@ -117,21 +119,21 @@ class ChatsController extends BaseController {
     return;
   }
 
-  void removeChat({required int index}) {
+  void removeChat({required ChatModel chat}) {
     actionCanUndo(
         listItem: chats,
-        index: index,
+        chat: chat,
         undoMessage: LocaleKeys.chat_delete_success.tr,
         action: () {
           printInfo(info: "Call api remove chat");
         });
   }
 
-  void storeConversation({required int index}) {
+  void storeConversation({required ChatModel chat}) {
     Get.back();
     actionCanUndo(
         listItem: chats,
-        index: index,
+        chat: chat,
         undoMessage: LocaleKeys.chat_store_success.tr,
         action: () {
           printInfo(info: "Call api store conversation");
@@ -147,23 +149,44 @@ class ChatsController extends BaseController {
     }
   }
 
-  static void actionCanUndo(
-      {required RxList listItem,
-      required int index,
-      required String undoMessage,
-      required Function action}) {
+  static void actionCanUndo({
+    required RxList listItem,
+    required ChatModel chat,
+    required String undoMessage,
+    required Function action,
+  }) async {
     final storedList = [];
     storedList.addAll(listItem);
+    listItem.removeWhere((element) {
+      if(element is ChatModel){
+        return chat.id == element.id;
+      }
+      return false;
+    });
+    await Get.closeCurrentSnackbar();
+    _showSnackBarCanUndo(
+      undoMessage: undoMessage,
+      listItem: listItem,
+      action: action,
+      storedList: storedList
+    );
+  }
+
+  static void _showSnackBarCanUndo({
+    required undoMessage,
+    required RxList listItem,
+    required Function action,
+    required dynamic storedList,
+  }) {
     bool acted = false;
-    listItem.removeAt(index);
-    Get.closeCurrentSnackbar();
     Get.showSnackbar(GetSnackBar(
       backgroundColor: GPColor.bgInversePrimary,
       icon: SvgPicture.asset(AppPaths.iconDone),
       messageText: Text(
         undoMessage,
-        style: textStyle(GPTypography.bodyMedium)
-            ?.merge(const TextStyle(color: GPColor.contentInversePrimary)),
+        style: textStyle(GPTypography.bodyMedium)?.merge(
+          const TextStyle(color: GPColor.contentInversePrimary),
+        ),
       ),
       duration: const Duration(seconds: Constants.restoreSnackDuration),
       margin: const EdgeInsets.symmetric(horizontal: 16),
@@ -187,8 +210,8 @@ class ChatsController extends BaseController {
               child: Text(
                 LocaleKeys.chat_undo.tr,
                 style: textStyle(GPTypography.headingSmall)?.merge(
-                    const TextStyle(
-                        color: GPColor.functionAccentWorkSecondary)),
+                  const TextStyle(color: GPColor.functionAccentWorkSecondary),
+                ),
               ),
             ),
             const Spacer(),

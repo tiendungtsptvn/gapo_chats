@@ -4,7 +4,7 @@ import 'package:base_flutter/theme/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
- List<String> tabsChats = [
+ final List<String> tabsChats = [
   LocaleKeys.chat_all.tr,
    LocaleKeys.chat_mention.tr,
    LocaleKeys.chat_unread.tr,

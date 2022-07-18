@@ -2,7 +2,7 @@ import 'package:base_flutter/base/widgets/base_smart_refresher_v2.dart';
 import 'package:base_flutter/models/api/chat.dart';
 import 'package:base_flutter/screens/chats/chats_controller.dart';
 import 'package:base_flutter/screens/chats/widgets/chat_tabs.dart';
-import 'package:base_flutter/screens/chats/widgets/dismissible_chat_item.dart';
+import 'package:base_flutter/screens/chats/widgets/chat_item/dismissible_chat_item.dart';
 import 'package:base_flutter/screens/chats/widgets/empty_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

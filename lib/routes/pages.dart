@@ -32,7 +32,7 @@ class Pages {
     ),
     GetPage(
       name: RouterName.storedConversation,
-      page: () =>  StoredConversation(),
+      page: () =>  const StoredConversation(),
       binding: StoredConversationBinding()
     )
   ];

@@ -16,6 +16,7 @@ class StoredConversationController extends BaseController {
 
   int _currentPage = 1;
   bool _reloadPreviousScreen = false;
+  bool get firstPage => (_currentPage == 1);
 
   @override
   void onInit() {
@@ -34,7 +35,7 @@ class StoredConversationController extends BaseController {
       await Future.delayed(const Duration(seconds: 2));
       List<ChatModel> res =
           await _chatAPI.getStoredConversations(page: _currentPage);
-      if (_currentPage == 1) {
+      if (firstPage) {
         storedConversations.value = res;
       } else {
         storedConversations.addAll(res);
@@ -62,20 +63,20 @@ class StoredConversationController extends BaseController {
     await _getChats();
   }
 
-  void removeStoredConversation({required int index}) {
+  void removeStoredConversation({required ChatModel chat}) {
     ChatsController.actionCanUndo(
         listItem: storedConversations,
-        index: index,
+        chat: chat,
         undoMessage: LocaleKeys.chat_delete_success.tr,
         action: () {
           printInfo(info: "Call api remove stored conversation");
         });
   }
 
-  void restoreStoredConversation({required int index}) {
+  void restoreStoredConversation({required ChatModel chat}) {
     ChatsController.actionCanUndo(
         listItem: storedConversations,
-        index: index,
+        chat: chat,
         undoMessage: LocaleKeys.chat_restore_success.tr,
         action: () {
           _reloadPreviousScreen = true;

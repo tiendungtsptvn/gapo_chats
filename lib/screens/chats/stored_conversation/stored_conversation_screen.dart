@@ -12,9 +12,8 @@ class StoredConversationBinding extends Bindings {
   }
 }
 
-class StoredConversation extends StatelessWidget {
-  StoredConversation({Key? key}) : super(key: key);
-  final StoredConversationController controller = Get.find();
+class StoredConversation extends GetView<StoredConversationController> {
+  const StoredConversation({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

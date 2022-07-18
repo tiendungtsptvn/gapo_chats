@@ -1,5 +1,6 @@
 import 'package:base_flutter/configs/path.dart';
-import 'package:base_flutter/screens/chats/widgets/menu_function.dart';
+import 'package:base_flutter/screens/chats/widgets/avatar_chat.dart';
+import 'package:base_flutter/screens/chats/widgets/menu_function/menu_function.dart';
 import 'package:base_flutter/theme/colors.dart';
 import 'package:base_flutter/theme/text_theme.dart';
 import 'package:flutter/material.dart';
@@ -12,43 +13,11 @@ class HeaderChats extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(
-          height: 32,
+        const AvatarChat(
+          imageUrl: "",
           width: 32,
-          child: Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(30),
-                child: Image.network(
-                  "https://image-1.gapo.vn/icon/zoom-avatar.png",
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Image(
-                      image: AssetImage(AppPaths.defaultImage),
-                      height: 32,
-                      width: 32,
-                      fit: BoxFit.fill,
-                    );
-                  },
-                  height: 32,
-                  width: 32,
-                  fit: BoxFit.fill,
-                ),
-              ),
-              Positioned(
-                right: 0,
-                bottom: 0,
-                child: Container(
-                  width: 12,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: GPColor.workPrimary,
-                    border: Border.all(width: 1, color: GPColor.bgPrimary),
-                  ),
-                ),
-              )
-            ],
-          ),
+          height: 32,
+          isActive: true,
         ),
         const SizedBox(
           width: 12,
@@ -65,18 +34,18 @@ class HeaderChats extends StatelessWidget {
         InkWell(
           onTap: () {
             showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return const FractionallySizedBox(
-                    child: MenuFunction(),
-                    heightFactor: 0.45,
-                  );
-                },
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(16),
-                  ),
+              context: context,
+              builder: (context) {
+                return const FractionallySizedBox(
+                  child: MenuFunction(),
+                  heightFactor: 0.45,
+                );
+              },
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(16),
                 ),
+              ),
             );
           },
           child: SizedBox(
